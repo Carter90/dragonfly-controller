@@ -25,7 +25,7 @@ class MissionStarter:
 
 
 class DragonflyCommand:
-    TEST_ALTITUDE = 3
+    TEST_ALTITUDE = 3.0
 
     def __init__(self, id, node):
         self.boundary_check_thread = None

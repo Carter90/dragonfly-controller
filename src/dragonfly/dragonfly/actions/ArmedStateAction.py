@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import rclpy
 from mavros_msgs.msg import State
 
 from .ActionQueue import ActionQueue
@@ -25,15 +26,16 @@ class ArmedStateAction:
 
             def updateState(state):
 
-                if state.armed:
-                    print("Is already armed, failed")
-                    self.status = ActionState.FAILURE
-                    self.log_publisher.publish(String(data="Arming failed, already armed"))
-                else:
-                    print("Is not armed, continue")
-                    self.status = ActionState.SUCCESS
+                if self.status is ActionState.WORKING:
+                    if state.armed:
+                        print("Is already armed, failed")
+                        self.status = ActionState.FAILURE
+                        self.log_publisher.publish(String(data="Arming failed, already armed"))
+                    else:
+                        print("Is not armed, continue")
+                        self.status = ActionState.SUCCESS
 
-                self.stop()
+                    self.stop()
 
             self.disabled_update = self.node.create_subscription(
                 State, "{}/mavros/state".format(self.id), updateState, 10)
@@ -41,6 +43,7 @@ class ArmedStateAction:
         return self.status
 
     def stop(self):
-        if self.disabled_update is not None:
-            self.disabled_update.destroy()
-            self.disabled_update = None
+        pass
+        # if self.disabled_update is not None:
+        #     self.disabled_update.destroy()
+        #     self.disabled_update = None
