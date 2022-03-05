@@ -86,7 +86,7 @@ class DragonflyCommand:
         print("Commanded to land")
 
         self.actionqueue.push(LandAction(self.logPublisher, self.land_service)) \
-            .push(WaitForDisarmAction(self.id, self.logPublisher)) \
+            .push(WaitForDisarmAction(self.id, self.logPublisher, self.node)) \
             .push(ModeAction(self.setmode_service, "STABILIZE"))
 
         return response
@@ -314,7 +314,7 @@ class DragonflyCommand:
             elif step.msg_type == MissionStep.TYPE_LAND:
                 print("Land")
                 self.actionqueue.push(LandAction(self.logPublisher, self.land_service)) \
-                    .push(WaitForDisarmAction(self.id, self.logPublisher)) \
+                    .push(WaitForDisarmAction(self.id, self.logPublisher, self.node)) \
                     .push(ModeAction(self.setmode_service, "STABILIZE"))
             elif step.msg_type == MissionStep.TYPE_GOTO_WAYPOINT:
                 print("Waypoint")
@@ -332,7 +332,7 @@ class DragonflyCommand:
                 print("RTL")
                 self.actionqueue.push(LogAction(self.logPublisher, "RTL".format(step.goto.waypoint))) \
                     .push(ModeAction(self.setmode_service, 'RTL')) \
-                    .push(WaitForDisarmAction(self.id, self.logPublisher))
+                    .push(WaitForDisarmAction(self.id, self.logPublisher, self.node))
             elif step.msg_type == MissionStep.TYPE_DDSA:
                 print("DDSA")
                 self.actionqueue.push(LogAction(self.logPublisher, "DDSA"))
@@ -409,12 +409,12 @@ class DragonflyCommand:
         return Mission.Response(success=True, message="{} mission received.".format(self.id))
 
     def start_mission(self, request, response):
-        print("Commanded to navigate")
-
+        print("start_mission: Commanded to navigate")
+        # @TODO: I feel like something is missing here
         self.canceled = False
         self.mission_starter.start = True
 
-        return
+        return response
 
     def runWaypoints(self, waypoints_name, waypoints, wait_time, distance_threshold):
 

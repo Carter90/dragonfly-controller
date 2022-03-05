@@ -8,9 +8,8 @@ from .ActionState import ActionState
 
 class WaitForDisarmAction:
 
-    def __init__(self, id, log_publisher):
-        rclpy.init(args=id)
-        self.node = rclpy.create_node(id + 'WaitForDisarmAction')
+    def __init__(self, id, log_publisher, node):
+        self.node = node
         self.id = id
         self.log_publisher = log_publisher
         self.status = ActionState.WORKING
@@ -36,4 +35,4 @@ class WaitForDisarmAction:
 
     def stop(self):
         if self.disabled_update is not None:
-            self.disabled_update.destroy()
+            pass # self.disabled_update.destroy()
