@@ -43,7 +43,7 @@ class ArmedStateAction:
         return self.status
 
     def stop(self):
-        pass
-        # if self.disabled_update is not None:
-        #     self.disabled_update.destroy()
-        #     self.disabled_update = None
+        print("I'm here")
+        if self.disabled_update is not None:
+            pass #self.disabled_update.destroy()
+            #self.disabled_update = None

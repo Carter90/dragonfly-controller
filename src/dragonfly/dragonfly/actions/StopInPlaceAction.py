@@ -34,5 +34,5 @@ class StopInPlaceAction:
 
     def stop(self):
         if self.position_update is not None:
-            self.position_update.destroy()
-            self.position_update = None
+            pass #self.position_update.destroy()
+            #self.position_update = None
