@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 from .ActionState import ActionState
-
+from mavros_msgs.srv import CommandTOL
+from std_msgs.msg import String
 
 class LandAction:
 
@@ -10,7 +11,7 @@ class LandAction:
 
     def step(self):
         print("Land off")
-        result = self.land_service(altitude=0)
+        result = self.land_service.call(CommandTOL.Request(altitude=0.0))
 
         print("Land result {}".format(result))
 
