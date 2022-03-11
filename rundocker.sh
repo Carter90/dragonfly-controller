@@ -10,7 +10,6 @@ docker run -it \
     do
       ros2 run dragonfly announce dragonfly$i &
       ros2 run dragonfly command dragonfly$i &
-      ros2 run dragonfly virtualco2publisher dragonfly$i &
     done;
     ros2 run dragonfly announce dragonfly4 &
     ros2 run dragonfly command dragonfly4 &
