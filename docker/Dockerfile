@@ -6,11 +6,11 @@ ENV WORKSPACE=/workspace
 # Install dependencies
 RUN apt-get -qq update && \
     apt-get -qq upgrade && \
-    apt-get -qq install apt-utils build-essential vim glpk-utils ros-galactic-mavros python3-pip
+    apt-get -qq install apt-utils build-essential vim glpk-utils ros-galactic-mavros python3-pip ros-galactic-gazebo-msgs
 
 RUN rm /bin/sh && ln -s /bin/bash /bin/sh
 
-RUN pip install pulp rx scikit-learn
+RUN pip install pulp rx scikit-learn numpy
 
 # Clear apt cache to save on space
 RUN rm -rf /var/lib/apt/lists/*
