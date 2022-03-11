@@ -51,7 +51,8 @@ class VirtualCO2Publisher:
         u = 1
 
         value = (Q / (2 * math.pi * K * -x)) * math.exp(- (u * ((pow(y, 2) + pow(H, 2))) / (4 * K * -x)))
-
+        value = math.sin(3 * math.sqrt(x*x + y*y))  # 3 is magic number to try out
+        #value = x * math.sin(3 * x) / 10.0
         if value < 0:
             return 420
         else:
